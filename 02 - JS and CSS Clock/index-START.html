@@ -69,6 +69,10 @@
       transform: rotate(90deg);
       transition-timing-function: ease-in-out
     }
+
+    .hour-hand {
+      width: 50%;
+    }
   </style>
 
   <script>
@@ -76,17 +80,52 @@
     //Handle seconds
     function updateSecondsHand(deg) {
       let hand = document.querySelector('.second-hand');
-      hand.style.transform = `rotate(${deg}deg`;
+      hand.style.transform = `rotate(${deg}deg)`;
     }
     function getSeconds() {
       const now = new Date();
       const seconds = now.getSeconds();
+      if (seconds === 1) {
+        getMinutes();
+      }
       const deg = (seconds / 60 * 360) + 90;
       updateSecondsHand(deg);
     }
     setInterval(getSeconds, 1000)
+    getMinutes();
 
     //Handle Minutes
+    function getMinutes() {
+      const now = new Date();
+      const minutes = now.getMinutes();
+      console.log(minutes);
+      const deg = (minutes * 6) + 90;
+      console.log(deg)
+      moveMinuteHand(deg);
+    }
+
+    function moveMinuteHand(deg) {
+      console.log('this is deg', deg)
+      let hand = document.querySelector('.min-hand');
+      hand.style.transform = `rotate(${deg}deg)`;
+    }
+
+    //Handle Hours
+    function getHours() {
+      const now = new Date();
+      const hours = now.getHours();
+      console.log(hours);
+      const deg = ((360 / 12) * ((24 - hours))) + 90;
+      console.log('deg', deg);
+      moveHourHand(deg);
+    }
+
+    function moveHourHand(deg) {
+      console.log('this is deg', deg)
+      let hand = document.querySelector('.hour-hand');
+      hand.style.transform = `rotate(${deg}deg)`;
+    }
+    getHours();
   </script>
 </body>
 
